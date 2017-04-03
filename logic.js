@@ -11,6 +11,7 @@ $(document).ready(function(){
     row3: ['', '', '']
   }
   var symbol = 'X';
+
   updateMessage('Player ' + symbol + '\'s turn');
 
   // Event handler below writes X or O in box when clicked 
@@ -115,11 +116,11 @@ $(document).ready(function(){
     newBoardData = _.object(['row1', 'row2', 'row3'], newBoardDataArray);
     history.push([symbol, boardData])
     boardData = newBoardData;
-    symbol = "X";
-    updateMessage('Player ' + symbol + '\'s turn');
     console.log(history)
     console.log('last history result: ', history[history.length-1][0])
     tallyScoreBoard(history[history.length-1][0])
+    symbol = "X";
+    updateMessage('Player ' + symbol + '\'s turn');
     console.log('new tallyData: ', tallyData)
   });
 
@@ -128,19 +129,23 @@ $(document).ready(function(){
   }
 
   function tallyScoreBoard(outcome) {
-    switch(outcome) {
-      case "X":
-        tallyData.xTally++;
-        $("#xTally").text(tallyData.xTally);
-        break;
-      case "O": 
-        tallyData.oTally++;
-        $("#oTally").text(tallyData.oTally);
-        break;
-      case "T": 
-        tallyData.tTally++;
-        $("#tTally").text(tallyData.tTally);
-        break;
+    var someoneWon = $("#message").text().includes('won');
+    console.log('someoneWon: ', someoneWon)
+    if (someoneWon) {
+      switch(outcome) {
+        case "X":
+          tallyData.xTally++;
+          $("#xTally").text(tallyData.xTally);
+          break;
+        case "O": 
+          tallyData.oTally++;
+          $("#oTally").text(tallyData.oTally);
+          break;
+        case "T": 
+          tallyData.tTally++;
+          $("#tTally").text(tallyData.tTally);
+          break;
+      }
     }
   }
 
