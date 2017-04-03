@@ -5,6 +5,7 @@ body {
 .wrapper {
 	display: inline-block;
 	/*background-color: lightgreen;*/
+	position: absolute;
 }
 .board {
 	display: inline-block;
