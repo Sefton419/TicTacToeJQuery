@@ -1,0 +1,56 @@
+.wrapper {
+	display: inline-block;
+	/*background-color: lightgreen;*/
+}
+.board {
+	display: inline-block;
+	background-color: black;
+}
+
+.row {
+	width: 632px;
+}
+
+.box {
+	background-color: pink;
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 200px; 
+	width: 200px;
+	height: 200px;
+	margin: 4px;
+	font-size: 50px;
+}
+
+.sidebar-right {
+	border: solid;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.panel {
+/*	background-color: lightblue;*/
+	text-align: center;
+	height: 150px;
+	width: 300px;
+	margin-bottom: 8px;
+}
+
+.table-center {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+}
+
+.table-cell {
+	border:solid;
+	border-width:0.5px;
+	padding:15px
+}
+
+.table-title {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
