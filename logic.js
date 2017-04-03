@@ -1,5 +1,10 @@
 $(document).ready(function(){
   var history = [];
+  var tallyData = {
+    xTally: 0, 
+    oTally: 0, 
+    tTally: 0
+  };
   var boardData  = {
     row1: ['', '', ''],
     row2: ['', '', ''],
@@ -101,20 +106,54 @@ $(document).ready(function(){
 
   $("#button-restart").click(function() {
     $(".box").text('');
-    symbol = "X";
-    updateMessage('Player ' + symbol + '\'s turn');
+    
     var newBoardDataArray = _.map(boardData, function(row){
       return row.map(function(box){
         return '';
       });
     });
     newBoardData = _.object(['row1', 'row2', 'row3'], newBoardDataArray);
-    history.push(boardData)
+    history.push([symbol, boardData])
     boardData = newBoardData;
+    symbol = "X";
+    updateMessage('Player ' + symbol + '\'s turn');
+    console.log(history)
+    console.log('last history result: ', history[history.length-1][0])
+    tallyScoreBoard(history[history.length-1][0])
+    console.log('new tallyData: ', tallyData)
   });
 
   function updateMessage(message) {
     $("#message").text(message);
   }
 
+  function tallyScoreBoard(outcome) {
+    switch(outcome) {
+      case "X":
+        tallyData.xTally++;
+        $("#xTally").text(tallyData.xTally);
+        break;
+      case "O": 
+        tallyData.oTally++;
+        $("#oTally").text(tallyData.oTally);
+        break;
+      case "T": 
+        tallyData.tTally++;
+        $("#tTally").text(tallyData.tTally);
+        break;
+    }
+  }
+
 })
+
+
+
+
+
+
+
+
+
+
+
+
