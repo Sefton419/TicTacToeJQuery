@@ -18,42 +18,46 @@ $(document).ready(function(){
   // if box does not already contain X or O
 
   $(".box").click(function() {
-    var textInBox = $(this).text();
-    updateMessage('Player ' + symbol + '\'s turn');
-    var boxID = $(this).attr('id');
+    var someoneWon = $("#message").text().includes('won');
+    if (!someoneWon) {
+      var textInBox = $(this).text();
+      updateMessage('Player ' + symbol + '\'s turn');
+      var boxID = $(this).attr('id');
 
-    if (textInBox === '') {
+      if (textInBox === '' ) {
 
-      // update boardData 
-      switch(Number(boxID)) {
-        case 0:
-          boardData.row1[0] = symbol;
-          break;
-        case 1:
-          boardData.row1[1] = symbol;
-          break;
-        case 2:
-          boardData.row1[2] = symbol;
-          break;
-        case 3:
-          boardData.row2[0] = symbol;
-          break;
-        case 4:
-          boardData.row2[1] = symbol;
-          break;
-        case 5:
-          boardData.row2[2] = symbol;
-          break;
-        case 6:
-          boardData.row3[0] = symbol;
-          break;
-        case 7:
-          boardData.row3[1] = symbol;
-          break;
-        case 8:
-          boardData.row3[2] = symbol;
-          break;
+        // update boardData 
+        switch(Number(boxID)) {
+          case 0:
+            boardData.row1[0] = symbol;
+            break;
+          case 1:
+            boardData.row1[1] = symbol;
+            break;
+          case 2:
+            boardData.row1[2] = symbol;
+            break;
+          case 3:
+            boardData.row2[0] = symbol;
+            break;
+          case 4:
+            boardData.row2[1] = symbol;
+            break;
+          case 5:
+            boardData.row2[2] = symbol;
+            break;
+          case 6:
+            boardData.row3[0] = symbol;
+            break;
+          case 7:
+            boardData.row3[1] = symbol;
+            break;
+          case 8:
+            boardData.row3[2] = symbol;
+            break;
+        }
       }
+    
 
       // check for winning combos
       var thereIsAWinner = false;
@@ -81,12 +85,9 @@ $(document).ready(function(){
             function(box){return box === symbol})
         ) {
         $(this).text(symbol);
-        console.log('game was won')
         updateMessage('Player ' + symbol + ' won! Press the restart button to play again');
         thereIsAWinner = true;
       }
-
-      console.log('boardData: ', boardData)
 
       if (!thereIsAWinner) {
         $(this).text(symbol);
@@ -116,12 +117,9 @@ $(document).ready(function(){
     newBoardData = _.object(['row1', 'row2', 'row3'], newBoardDataArray);
     history.push([symbol, boardData])
     boardData = newBoardData;
-    console.log(history)
-    console.log('last history result: ', history[history.length-1][0])
     tallyScoreBoard(history[history.length-1][0])
     symbol = "X";
     updateMessage('Player ' + symbol + '\'s turn');
-    console.log('new tallyData: ', tallyData)
   });
 
   function updateMessage(message) {
@@ -130,7 +128,6 @@ $(document).ready(function(){
 
   function tallyScoreBoard(outcome) {
     var someoneWon = $("#message").text().includes('won');
-    console.log('someoneWon: ', someoneWon)
     if (someoneWon) {
       switch(outcome) {
         case "X":
