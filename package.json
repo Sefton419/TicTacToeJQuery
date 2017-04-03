@@ -1,0 +1,24 @@
+{
+  "name": "simple-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "logic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sefton419/TicTacToeJQuery.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sefton419/TicTacToeJQuery/issues"
+  },
+  "homepage": "https://github.com/Sefton419/TicTacToeJQuery#readme",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "underscore": "^1.8.3"
+  }
+}

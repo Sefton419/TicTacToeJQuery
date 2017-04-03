@@ -85,7 +85,7 @@ $(document).ready(function(){
             function(box){return box === symbol})
         ) {
         $(this).text(symbol);
-        updateMessage('Player ' + symbol + ' won! Press the restart button to play again');
+        updateMessage('Player ' + symbol + ' won!');
         thereIsAWinner = true;
       }
 
