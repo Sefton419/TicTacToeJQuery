@@ -26,10 +26,10 @@ $(document).ready(function(){
       var boxID = $(this).attr('id');
 
       if (textInBox === '' ) {
+        
         // increment move number
         moveNumber++;
-        console.log('text in box recognized as \'\'')
-        console.log('moveNumber: ', moveNumber)
+
         // update boardData 
         switch(Number(boxID)) {
           case 0:
@@ -132,8 +132,6 @@ $(document).ready(function(){
     }
 
     tallyScoreBoard(history[history.length-1][0])
-    symbol = "X";
-    moveNumber = 0;
     
   });
 
@@ -159,7 +157,9 @@ $(document).ready(function(){
           $("#tTally").text(tallyData.tTally);
           break;
       }
+      symbol = "X";
       updateMessage('Player ' + symbol + '\'s turn');
+      moveNumber = 0;
     }
   }
 

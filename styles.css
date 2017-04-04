@@ -1,4 +1,6 @@
 body {
+	background-color: #0E0E0E;
+	color: white;
 	font-family: Roboto;
 }
 
@@ -9,7 +11,7 @@ body {
 }
 .board {
 	display: inline-block;
-	background-color: black;
+	background-color: white;
 }
 
 .row {
@@ -17,7 +19,7 @@ body {
 }
 
 .box {
-	background-color: pink;
+	background-color: #0E0E0E;
 	display: inline-block;
 	text-align: center;
 	vertical-align: middle;
@@ -29,7 +31,7 @@ body {
 }
 
 .sidebar-right {
-	border: solid;
+	/*border: solid;*/
 	display: inline-block;
 	vertical-align: top;
 }
@@ -49,7 +51,7 @@ body {
 }
 
 .table-cell {
-	border:solid;
+	/*border:solid;*/
 	border-width:0.5px;
 	padding:15px
 }
@@ -64,6 +66,10 @@ body {
 	text-align: center;
 	vertical-align: middle;
 	line-height: 150px;
+}
+
+#button-restart {
+	background-color: white;
 }
 
 
