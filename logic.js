@@ -26,7 +26,7 @@ $(document).ready(function(){
       var boxID = $(this).attr('id');
 
       if (textInBox === '' ) {
-        
+
         // increment move number
         moveNumber++;
 
@@ -132,7 +132,7 @@ $(document).ready(function(){
     }
 
     tallyScoreBoard(history[history.length-1][0])
-    
+    moveNumber = 0;  
   });
 
   function updateMessage(message) {
@@ -140,7 +140,6 @@ $(document).ready(function(){
   }
 
   function tallyScoreBoard(outcome) {
-    console.log('tally: ', outcome)
     var someoneWon = $("#message").text().includes('won') || $("#message").text().includes('Tie');
     if (someoneWon) {
       switch(outcome) {
@@ -159,7 +158,6 @@ $(document).ready(function(){
       }
       symbol = "X";
       updateMessage('Player ' + symbol + '\'s turn');
-      moveNumber = 0;
     }
   }
 
