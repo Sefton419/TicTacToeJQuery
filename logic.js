@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  var moveNumber = 0;
   var history = [];
   var tallyData = {
     xTally: 0, 
@@ -25,7 +26,10 @@ $(document).ready(function(){
       var boxID = $(this).attr('id');
 
       if (textInBox === '' ) {
-
+        // increment move number
+        moveNumber++;
+        console.log('text in box recognized as \'\'')
+        console.log('moveNumber: ', moveNumber)
         // update boardData 
         switch(Number(boxID)) {
           case 0:
@@ -56,70 +60,81 @@ $(document).ready(function(){
             boardData.row3[2] = symbol;
             break;
         }
-      }
-    
 
-      // check for winning combos
-      var thereIsAWinner = false;
-      if (
-          // horizontal win
+        // check for winning combos
+        // and yes... this is a huge "if condition"
+        var thereIsAWinner = false;
+        if (
+            // horizontal win
 
-          _.every(boardData.row1, function(box){return box === symbol}) ||
-          _.every(boardData.row2, function(box){return box === symbol}) ||
-          _.every(boardData.row3, function(box){return box === symbol}) ||
+            _.every(boardData.row1, function(box){return box === symbol}) ||
+            _.every(boardData.row2, function(box){return box === symbol}) ||
+            _.every(boardData.row3, function(box){return box === symbol}) ||
 
-          // vertical win
+            // vertical win
 
-          _.every([ boardData.row1[0], boardData.row2[0], boardData.row3[0] ],
-            function(box){return box === symbol}) ||
-          _.every([ boardData.row1[1], boardData.row2[1], boardData.row3[1] ],
-            function(box){return box === symbol}) ||
-          _.every([ boardData.row1[2], boardData.row2[2], boardData.row3[2] ],
-            function(box){return box === symbol}) ||
+            _.every([ boardData.row1[0], boardData.row2[0], boardData.row3[0] ],
+              function(box){return box === symbol}) ||
+            _.every([ boardData.row1[1], boardData.row2[1], boardData.row3[1] ],
+              function(box){return box === symbol}) ||
+            _.every([ boardData.row1[2], boardData.row2[2], boardData.row3[2] ],
+              function(box){return box === symbol}) ||
 
-          // diagonal win
+            // diagonal win
 
-          _.every([ boardData.row1[0], boardData.row2[1], boardData.row3[2] ], 
-            function(box){return box === symbol}) ||
-          _.every([ boardData.row1[2], boardData.row2[1], boardData.row3[0] ], 
-            function(box){return box === symbol})
-        ) {
-        $(this).text(symbol);
-        updateMessage('Player ' + symbol + ' won!');
-        thereIsAWinner = true;
-      }
+            _.every([ boardData.row1[0], boardData.row2[1], boardData.row3[2] ], 
+              function(box){return box === symbol}) ||
+            _.every([ boardData.row1[2], boardData.row2[1], boardData.row3[0] ], 
+              function(box){return box === symbol})
+          ) {
 
-      if (!thereIsAWinner) {
-        $(this).text(symbol);
-        if (symbol === "X") {
-          symbol = "O";
-          updateMessage('Player ' + symbol + '\'s turn');
-        } else {
-          symbol = "X";
-          updateMessage('Player ' + symbol + '\'s turn');
+          // **IMPORTANT** this sets the X or O in box and resets the message
+
+          $(this).text(symbol);
+          updateMessage('Player ' + symbol + ' won!');
+          thereIsAWinner = true;
         }
-      } else {
-        thereIsAWinner = false;
+
+        if (!thereIsAWinner) {
+          $(this).text(symbol);
+          if (symbol === "X") {
+            symbol = "O";
+            updateMessage('Player ' + symbol + '\'s turn');
+          } else {
+            symbol = "X";
+            updateMessage('Player ' + symbol + '\'s turn');
+          }
+        } else {
+          thereIsAWinner = false;
+        }
+      }
+      // handles a tie if there are no empty boxes
+      if (moveNumber === 9 && !$("#message").text().includes('won')) {
+        updateMessage('Tie');
+        symbol = "T";
       }
     }
   });
 
   // Restarts game, sets symbol back to "X"
-
   $("#button-restart").click(function() {
+    // empties all box classes on DOM
     $(".box").text('');
     
-    var newBoardDataArray = _.map(boardData, function(row){
-      return row.map(function(box){
-        return '';
-      });
-    });
-    newBoardData = _.object(['row1', 'row2', 'row3'], newBoardDataArray);
-    history.push([symbol, boardData])
-    boardData = newBoardData;
+    // updates history
+    history.push([symbol, boardData]);
+
+    // resets boardData
+    boardData = {
+      row1: ['', '', ''],
+      row2: ['', '', ''],
+      row3: ['', '', '']
+    }
+
     tallyScoreBoard(history[history.length-1][0])
     symbol = "X";
-    updateMessage('Player ' + symbol + '\'s turn');
+    moveNumber = 0;
+    
   });
 
   function updateMessage(message) {
@@ -127,7 +142,8 @@ $(document).ready(function(){
   }
 
   function tallyScoreBoard(outcome) {
-    var someoneWon = $("#message").text().includes('won');
+    console.log('tally: ', outcome)
+    var someoneWon = $("#message").text().includes('won') || $("#message").text().includes('Tie');
     if (someoneWon) {
       switch(outcome) {
         case "X":
@@ -143,6 +159,7 @@ $(document).ready(function(){
           $("#tTally").text(tallyData.tTally);
           break;
       }
+      updateMessage('Player ' + symbol + '\'s turn');
     }
   }
 
